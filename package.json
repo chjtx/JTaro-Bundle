@@ -1,0 +1,22 @@
+{
+  "name": "jtaro-bundle",
+  "version": "0.0.1",
+  "description": "A bundle plugin for JTaro",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chjtx/JTaro-Bundle.git"
+  },
+  "keywords": [
+    "JTaro-Bundle"
+  ],
+  "author": "BarZu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chjtx/JTaro-Bundle/issues"
+  },
+  "homepage": "https://github.com/chjtx/JTaro-Bundle#readme"
+}
