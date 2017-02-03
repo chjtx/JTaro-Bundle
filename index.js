@@ -1,9 +1,9 @@
 var fs = require('fs')
 var path = require('path')
 
-exports = function (src, dest) {
+exports.bundle = function (options) {
   // 遍历demos/jroll_demo/pages里的js文件路径创建bundle.js
-  var paths = fs.readdirSync(path.resolve(src))
+  var paths = fs.readdirSync(path.resolve(options.src))
   var content = ''
 
   paths.forEach((item, index) => {
@@ -11,5 +11,5 @@ exports = function (src, dest) {
       content += 'import p' + index + ' from \'./pages/' + item + '\'\nVue.component(\'pages__' + item.replace('.js', '') + '\', p' + index + ')\n'
     }
   })
-  fs.writeFileSync(path.resolve(dest), content)
+  fs.writeFileSync(path.resolve(options.dest), content)
 }

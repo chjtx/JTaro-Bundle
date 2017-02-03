@@ -5,7 +5,7 @@
 ```js
 // nodejs
 var jtaroBundle = require('jtaro-bundle')
-jtaroBundle({
+jtaroBundle.bundle({
   src: 'src/pages',  // 源目录
   dest: 'src/pages.js'  // 目标文件
 })
