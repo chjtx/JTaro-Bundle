@@ -1,6 +1,6 @@
 {
   "name": "jtaro-bundle",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "A bundle plugin for JTaro",
   "main": "index.js",
   "scripts": {
@@ -18,5 +18,10 @@
   "bugs": {
     "url": "https://github.com/chjtx/JTaro-Bundle/issues"
   },
-  "homepage": "https://github.com/chjtx/JTaro-Bundle#readme"
+  "homepage": "https://github.com/chjtx/JTaro-Bundle#readme",
+  "dependencies": {
+    "fs-extra": "^2.0.0",
+    "rollup": "^0.41.4",
+    "rollup-plugin-jtaro-module": "0.0.5"
+  }
 }
