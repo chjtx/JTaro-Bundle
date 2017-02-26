@@ -33,7 +33,7 @@ jtaroBundle.bundle({
 
 | 键 | 值 | 必填 | 备注 |
 |:--:|:--:|:--:|:--:|
-| origin | <String> | Y | 开发目录的index.html |
-| target | <String> | Y | 生产目录的index.html |
-| copies | <Array> | N | 直接拷贝的文件（夹） |
-| rollupPlugins | <Array> | N | 参考 [Rollup JavaScript-API#plugins](https://github.com/rollup/rollup/wiki/JavaScript-API#plugins) |
+| origin | \<String\> | Y | 开发目录的index.html |
+| target | \<String\> | Y | 生产目录的index.html |
+| copies | \<Array\> | N | 直接拷贝的文件（夹） |
+| rollupPlugins | \<Array\> | N | 参考 [Rollup JavaScript-API#plugins](https://github.com/rollup/rollup/wiki/JavaScript-API#plugins) |
