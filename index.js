@@ -16,7 +16,7 @@ exports.bundle = function (options) {
   var targetDir = path.dirname(options.target)
 
   // 拷贝需要直接拷贝的文件，合并不存在的文件（将文件夹里所有html/js用rollup打包成一个与文件夹同名的js文件）
-  copyFiles(assets.concat(options.copies), originDir, targetDir, options.rollupPlugins || [])
+  copyFiles(assets.concat(options.copies || []), originDir, targetDir, options.rollupPlugins || [])
 }
 
 function copyFiles (copies, ori, tar, plugins) {
