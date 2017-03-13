@@ -8,6 +8,8 @@ var jtaroModule = require('rollup-plugin-jtaro-module')
  * @param options.origin String 开发版的index
  * @param options.target String 生产版的index
  * @param options.copies Array<String> 不能从目标index扫描到的文件从这里拷贝，元素可为目录或文件，都必须相对源index
+ * @param options.rollupPlugins 提供Rollup插件
+ * @param options.sourceMap 开启sourceMap
  */
 exports.bundle = function (options) {
   // 扫描目标index
@@ -16,10 +18,10 @@ exports.bundle = function (options) {
   var targetDir = path.dirname(options.target)
 
   // 拷贝需要直接拷贝的文件，合并不存在的文件（将文件夹里所有html/js用rollup打包成一个与文件夹同名的js文件）
-  copyFiles(assets.concat(options.copies || []), originDir, targetDir, options.rollupPlugins || [])
+  copyFiles(assets.concat(options.copies || []), originDir, targetDir, options.rollupPlugins, options.sourceMap)
 }
 
-function copyFiles (copies, ori, tar, plugins) {
+function copyFiles (copies, ori, tar, plugins, sourceMap) {
   copies.forEach(f => {
     const oriFile = path.resolve(ori, f)
     const tarFile = path.resolve(tar, f)
@@ -31,7 +33,8 @@ function copyFiles (copies, ori, tar, plugins) {
               root: ori,
               src: oriFile.replace(/\.\w+/, '/'),
               dest: tarFile,
-              plugins: plugins
+              plugins: plugins || [],
+              sourceMap: !!sourceMap
             })
           }
           if (err) throw err
@@ -77,10 +80,10 @@ function rollupBundle (options) {
   }).then(function (bundle) {
     bundle.write({
       format: 'iife',
-      dest: path.resolve(options.dest)
+      dest: path.resolve(options.dest),
+      sourceMap: options.sourceMap
     })
     // 删除临时文件
     fs.unlinkSync(tempFile)
   })
 }
-
