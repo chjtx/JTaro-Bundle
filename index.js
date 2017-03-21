@@ -21,6 +21,25 @@ exports.bundle = function (options) {
   copyFiles(assets.concat(options.copies || []), originDir, targetDir, options.rollupPlugins, options.sourceMap)
 }
 
+// 生成一个索引文件引入文件夹里所有js后缀文件
+exports.index = index
+
+function index (d, n) {
+  var paths = fs.readdirSync(path.resolve(d))
+  var content = ''
+  var f = /\/([^\/]+)\/?$/.exec(d)[1]
+  if (!n) n = f + '_index.js'
+  var dist = path.resolve(d.replace(/\/([^\/]+)\/?$/, ''), n)
+  paths.forEach((item, index) => {
+    if (/\.js$/.test(item)) {
+      content += 'import p' + index + ' from \'./' + f + '/' + item + '\'\nVue.component(\'pages__' + item.replace('.js', '') + '\', p' + index + ')\n'
+    }
+  })
+
+  fs.writeFileSync(dist, content)
+  return dist
+}
+
 function copyFiles (copies, ori, tar, plugins, sourceMap) {
   copies.forEach(f => {
     const oriFile = path.resolve(ori, f)
@@ -58,18 +77,7 @@ function scanTarget (file) {
 }
 
 function rollupBundle (options) {
-  // 遍历demos/jroll_demo/pages里的js文件路径创建bundle.js
-  var paths = fs.readdirSync(path.resolve(options.src))
-  var content = ''
-  var tempFile = path.resolve(options.root || '', '_jtaro_bundle_temp_' + path.basename(options.dest))
-
-  paths.forEach((item, index) => {
-    if (/\.js$/.test(item)) {
-      content += 'import p' + index + ' from \'./pages/' + item + '\'\nVue.component(\'pages__' + item.replace('.js', '') + '\', p' + index + ')\n'
-    }
-  })
-  // 创建临时文件
-  fs.writeFileSync(tempFile, content)
+  var tempFile = index(options.src, '_jtaro_bundle_' + Date.now() + '.js')
 
   rollup.rollup({
     entry: tempFile,
