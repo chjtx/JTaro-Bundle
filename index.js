@@ -27,7 +27,7 @@ exports.index = index
 function index (d, n) {
   var paths = fs.readdirSync(path.resolve(d))
   var content = ''
-  var f = /\/([^\/]+)\/?$/.exec(d)[1]
+  var f = /(\/|\\)([^\/]+)(\/|\\)?$/.exec(d)[1]
   if (!n) n = f + '_index.js'
   var dist = path.resolve(d.replace(/\/([^\/]+)\/?$/, ''), n)
   paths.forEach((item, index) => {

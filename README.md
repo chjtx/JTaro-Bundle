@@ -70,6 +70,10 @@ Vue.component('pages__reply', p8)
 
 ## LOG
 
+### v0.2.1 (2017-05-01)
+
+- 修复windows下index方法解释`\`反斜杠路径错误的问题
+
 ### v0.2.0 (2017-03-21)
 
 - 新增index方法，用于将文件夹里所有js文件索引到一个js文件里，给rollup.js提供入口
