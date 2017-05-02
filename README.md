@@ -32,12 +32,26 @@ npm install -D jtaro-bundle
 // nodejs
 var jtaroBundle = require('jtaro-bundle')
 var uglify = require('rollup-plugin-uglify')
+var babel = require('rollup-plugin-babel')
 
 jtaroBundle.bundle({
   origin: 'dev/index.html',  // 开发目录的index.html
   target: 'pro/index.html',  // 生产目录的index.html
-  copies: ['./data.json', './assets']  // 直接拷贝的文件（夹）
-  rollupPlugins: [uglify()],  // 自定义使用rollup打包时使用的插件
+  copies: ['./data.json', './assets'],  // 直接拷贝的文件（夹）
+  // 自定义使用rollup打包时使用的插件
+  // uglify不能压缩ES6语法，所以babel要放在uglify前面
+  rollupPlugins: [babel({
+    include: './dev/pages/*.js', // 相对于该脚本文件（请注意区分与jtaro-module的babel插件路径）
+    presets: [
+      [
+        'es2015',
+        {
+          'modules': false
+        }
+      ]
+    ]
+  },
+    uglify()],
   sourceMap: true
 })
 ```
