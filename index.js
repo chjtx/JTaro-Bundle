@@ -27,9 +27,9 @@ exports.index = index
 function index (d, n) {
   var paths = fs.readdirSync(path.resolve(d))
   var content = ''
-  var f = /(\/|\\)([^\/]+)(\/|\\)?$/.exec(d)[1]
+  var f = /(\/|\\)([^\/\\]+)(\/|\\)?$/.exec(d)[2]
   if (!n) n = f + '_index.js'
-  var dist = path.resolve(d.replace(/\/([^\/]+)\/?$/, ''), n)
+  var dist = path.resolve(d.replace(/(\/|\\)([^\/\\]+)(\/|\\)?$/, ''), n)
   paths.forEach((item, index) => {
     if (/\.js$/.test(item)) {
       content += 'import p' + index + ' from \'./' + f + '/' + item + '\'\nVue.component(\'pages__' + item.replace('.js', '') + '\', p' + index + ')\n'

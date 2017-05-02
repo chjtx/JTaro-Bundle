@@ -70,6 +70,10 @@ Vue.component('pages__reply', p8)
 
 ## LOG
 
+### v0.2.2 (2017-05-02)
+
+- 补充修复windows下index方法解释`\`反斜杠路径错误的问题
+
 ### v0.2.1 (2017-05-01)
 
 - 修复windows下index方法解释`\`反斜杠路径错误的问题
