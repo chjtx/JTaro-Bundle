@@ -84,6 +84,10 @@ Vue.component('pages__reply', p8)
 
 ## LOG
 
+### v0.2.3 (2017-05-04)
+
+- 更新依赖`rollup-plugin-jtaro-module`
+
 ### v0.2.2 (2017-05-02)
 
 - 补充修复windows下index方法解释`\`反斜杠路径错误的问题
