@@ -84,9 +84,13 @@ Vue.component('pages__reply', p8)
 
 ## LOG
 
+### v0.2.4 (2017-05-16)
+
+- 更新依赖`rollup-plugin-jtaro-module@0.1.0`
+
 ### v0.2.3 (2017-05-04)
 
-- 更新依赖`rollup-plugin-jtaro-module`
+- 更新依赖`rollup-plugin-jtaro-module@0.0.7`
 
 ### v0.2.2 (2017-05-02)
 
