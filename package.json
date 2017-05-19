@@ -1,6 +1,6 @@
 {
   "name": "jtaro-bundle",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "A bundle plugin for JTaro",
   "main": "index.js",
   "scripts": {
@@ -22,6 +22,6 @@
   "dependencies": {
     "fs-extra": "^2.0.0",
     "rollup": "^0.41.4",
-    "rollup-plugin-jtaro-module": "^0.1.0"
+    "rollup-plugin-jtaro-module": "^0.2.0"
   }
 }
