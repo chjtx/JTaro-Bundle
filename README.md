@@ -84,6 +84,10 @@ Vue.component('pages__reply', p8)
 
 ## LOG
 
+### v0.2.6 (2017-06-09)
+
+- 修复工程目录路径带`.`报错的问题
+
 ### v0.2.5 (2017-05-19)
 
 - 更新依赖`rollup-plugin-jtaro-module@0.2.0`

@@ -50,7 +50,7 @@ function copyFiles (copies, ori, tar, plugins, sourceMap) {
           if (s.isDirectory()) {
             rollupBundle({
               root: ori,
-              src: oriFile.replace(/\.\w+/, '/'),
+              src: oriFile.replace(/\.js$/, '/'),
               dest: tarFile,
               plugins: plugins || [],
               sourceMap: !!sourceMap
