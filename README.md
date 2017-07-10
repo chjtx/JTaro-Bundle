@@ -21,10 +21,11 @@ npm install -D jtaro-bundle
 | 键 | 值 | 必填 | 备注 |
 |:--:|:--:|:--:|:--:|
 | origin | \<String\> | Y | 开发目录的index.html |
-| target | \<String\> | Y | 生产目录的index.html |
+| target | \<String\> | Y | 生产目录的index.html模板 |
 | copies | \<Array\> | N | 直接拷贝的文件（夹） |
 | rollupPlugins | \<Array\> | N | 参考 [Rollup JavaScript-API#plugins](https://github.com/rollup/rollup/wiki/JavaScript-API#plugins) |
 | sourceMap | \<Boolean\> | N | 默认为false，是否开启sourceMap |
+| callback | \<Function\> | N | 打包完成后执行的回调 |
 
 示例：
 
@@ -36,7 +37,7 @@ var babel = require('rollup-plugin-babel')
 
 jtaroBundle.bundle({
   origin: 'dev/index.html',  // 开发目录的index.html
-  target: 'pro/index.html',  // 生产目录的index.html
+  target: 'pro/index_template.html',  // 生产目录的index.html模板
   copies: ['./data.json', './assets'],  // 直接拷贝的文件（夹）
   // 自定义使用rollup打包时使用的插件
   // uglify不能压缩ES6语法，所以babel要放在uglify前面
@@ -52,7 +53,10 @@ jtaroBundle.bundle({
     ]
   },
     uglify()],
-  sourceMap: true
+  sourceMap: true,
+  callback: function () {
+    console.log('打包完成')
+  }
 })
 ```
 
@@ -83,6 +87,11 @@ Vue.component('pages__reply', p8)
 ```
 
 ## LOG
+
+### v0.3.0 (2017-07-10)
+
+- 添加回调函数，打包完成后可执行回调
+- 添加创建带时间戳路径的index.html文件用于清除缓存，因此原index.html模板文件要修改为index_template.html
 
 ### v0.2.6 (2017-06-09)
 
