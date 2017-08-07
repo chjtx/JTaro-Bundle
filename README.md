@@ -38,7 +38,8 @@ var babel = require('rollup-plugin-babel')
 jtaroBundle.bundle({
   origin: 'dev/index.html',  // 开发目录的index.html
   target: 'pro/index_template.html',  // 生产目录的index.html模板
-  copies: ['./data.json', './assets'],  // 直接拷贝的文件（夹）
+  // 直接拷贝的文件（夹），注意：文件夹后不要带/，否则windows10拷贝的文件会有问题，例：./assets不要写成./assets/
+  copies: ['./data.json', './assets'],
   // 自定义使用rollup打包时使用的插件
   // uglify不能压缩ES6语法，所以babel要放在uglify前面
   rollupPlugins: [babel({
@@ -71,8 +72,8 @@ jtaroBundle.bundle({
 
 ```js
 var jtaroBundle = require('jtaro-bundle')
-jtaroBundle.index('dev/pages/')
-// jtaroBundle.index('dev/pages/', 'myIndex.js') // 自定义文件名
+jtaroBundle.index('dev/pages')
+// jtaroBundle.index('dev/pages', 'myIndex.js') // 自定义文件名
 ```
 
 将会生成`dev/pages.js`文件，`dev/pages.js`文件内容类似如下形式，引入js并创建Vue组件
