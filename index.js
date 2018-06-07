@@ -1,6 +1,7 @@
 var fs = require('fs-extra')
 var path = require('path')
 var rollup = require('rollup')
+var md5 = require("crypto-js/md5")
 var jtaroModule = require('rollup-plugin-jtaro-module')
 var globalOptions
 
@@ -61,9 +62,12 @@ function copyFiles (copies, ori, tar, plugins) {
           if (err) throw err
         })
       } else if (s.isFile() || s.isDirectory()) {
-        fs.copy(oriFile, path.resolve(tar, f), err => {
-          if (err) throw err
-        })
+        // 使用copySync替换copy，解决windows系统拷贝失败的问题
+        try {
+          fs.copySync(oriFile, path.resolve(tar, f))
+        } catch (e) {
+          throw err
+        }
       }
     })
   })
@@ -72,7 +76,7 @@ function copyFiles (copies, ori, tar, plugins) {
 function scanTarget (file) {
   var text = fs.readFileSync(path.resolve(file)).toString()
   var paths = []
-  text.replace(/(?:(?:href|src)=(?:"|'))([^"']+)(?:"|')/g, (match, p) => {
+  text.replace(/(?:(?:href|src)=(?:"|'))(?!http)([^"']+)(?:"|')/g, (match, p) => {
     paths.push(p)
   })
   return paths
@@ -98,10 +102,16 @@ function rollupBundle (options) {
 
       // 创建index.html文件
       fs.readFile(globalOptions.target, 'utf-8', (err, data) => {
-        if (err) throw err;
-        var content = data.replace(/(src|href)=('|")([^'"]+)('|")/g, (match, src, quote, url) => {
-          return src + '="' + url + (url.indexOf('?') === -1 ? '?t=' : '&t=') + Date.now() + '"'
-        });
+        if (err) throw err
+        var content = data.replace(/(src|href)=('|")(?!http)([^'"]+)('|")/g, (match, src, quote, url) => {
+          var t
+          try {
+            t = fs.readFileSync(path.resolve(path.dirname(globalOptions.target), url), { encoding: 'utf8' })
+          } catch (e) {
+            throw e
+          }
+          return src + '="' + url + '?' + md5(t) + '"'
+        })
         fs.writeFileSync(path.resolve(path.dirname(globalOptions.target), 'index.html'), content)
 
         // 执行回调
