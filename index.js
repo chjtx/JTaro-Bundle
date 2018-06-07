@@ -1,7 +1,7 @@
 var fs = require('fs-extra')
 var path = require('path')
 var rollup = require('rollup')
-var md5 = require("crypto-js/md5")
+var md5 = require('crypto-js/md5')
 var jtaroModule = require('rollup-plugin-jtaro-module')
 var globalOptions
 
